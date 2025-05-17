@@ -1,46 +1,3 @@
-# supplier_kit
-
-**A modular toolkit for managing and grouping dynamic data suppliers.**
-
-`supplier_kit` helps you build robust and extensible architectures that rely
-on multiple external or internal data providers — known as *suppliers*. It is ideal
-for use cases such as federated API calls, service orchestration, or data aggregation
-(e.g., e-commerce platforms).
-
----
-
-## ✨ Features
-
-- `Supplier` trait: defines a common interface for all data providers
-- `SupplierRegistry`: a container for registering and accessing suppliers by name
-- `SupplierGroup`: abstraction to query multiple suppliers in a batch
-- `SupplierGroupResult`: returns per-supplier successes and failures
-- `register_suppliers!` macro: for easy supplier registration
-- Utility helpers like `add_supplier_from_registry` and `add_suppliers_from_registry` as an option
-
----
-
-## 🔧  Use Cases
-
-- Aggregating product listings from multiple platforms
-- Wrapping multiple internal microservices behind unified access
-- Resilient systems that gracefully handle partial failure
-
----
-
-## 🚀  Quick Start
-
-### Example: Registering and Querying Multiple Suppliers
-
-This example demonstrates how to use `SupplierRegistry` and `BasicSupplierGroup`
-to register multiple suppliers, group them, and execute a `Search` operation.
-
-It includes:
-- Using the `register_suppliers!` macro
-- Handling partial failures using `add_suppliers_from_registry`
-- Group querying with `SupplierGroup` trait
-
-```rust
 use supplier_kit::models::{SupplierRequest, SupplierResponse, SupplierOperation};
 use supplier_kit::supplier::{Supplier, SupplierRegistry};
 use supplier_kit::supplier_group::{SupplierGroup, BasicSupplierGroup, SupplierGroupResult};
@@ -97,7 +54,7 @@ fn main() -> Result<(), SupplierError> {
 
     if !failures.is_empty() {
         for (name, err) in failures {
-            println!("Failed to add '{}': {}", name, err);
+            println!("❌  Failed to add '{}': {}", name, err);
         }
     }
 
@@ -120,33 +77,3 @@ fn main() -> Result<(), SupplierError> {
 
     Ok(())
 }
-```
-
----
-
-## 📄 License
-
-Licensed under the [Apache-2.0 license](http://www.apache.org/licenses/LICENSE-2.0.txt)
-
----
-
-## 👨 Author
-
-Jerry Maheswara <jerrymaheswara@gmail.com>
-
----
-
-## ❤️ Built with Love in Rust
-
-This project is built with ❤️ using **Rust** — a systems programming language that is safe, fast, and concurrent.  
-Rust is the perfect choice for building reliable and efficient applications.
-
----
-
-## 🤝 Contributing
-
-Pull requests, issues, and feedback are welcome!  
-If you find this crate useful, give it a ⭐ and share it with others in the Rustacean community.
-
----
-
