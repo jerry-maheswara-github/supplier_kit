@@ -4,7 +4,7 @@ use supplier_kit::supplier_group::{SupplierGroup, BasicSupplierGroup, SupplierGr
 use supplier_kit::errors::SupplierError;
 use supplier_kit::register_suppliers;
 use serde_json::json;
-use supplier_kit::utils::{add_suppliers_from_registry};
+use supplier_kit::utils::add_suppliers_from_registry;
 
 struct MockSupplier {
     name: String,
@@ -49,18 +49,18 @@ fn main() -> Result<(), SupplierError> {
     );
 
     let mut group = BasicSupplierGroup::new("example_group");
-    
+
     let failures = add_suppliers_from_registry(&mut group, &registry, &["s1", "s2", "s4"]);
-    
+
     if !failures.is_empty() {
         for (name, err) in failures {
             println!("❌  Failed to add '{}': {}", name, err);
         }
-    }    
-    
+    }
+
     let request = SupplierRequest {
         operation: SupplierOperation::Search,
-        params: json!({"keyword": "laptop"}),
+        params: json!({ "keyword": "laptop" }),
     };
 
     let result: SupplierGroupResult = group.query(request);
