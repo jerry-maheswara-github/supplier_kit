@@ -2,18 +2,15 @@ use std::sync::Arc;
 use crate::errors::SupplierError;
 use crate::models::{SupplierRequest, SupplierResponse};
 
-// Supplier trait untuk semua jenis provider (tanpa Send/Sync)
 pub trait Supplier {
     fn name(&self) -> &str;
 
-    /// Query data, eksekusi dilakukan oleh implementor
     fn query(
         &self,
         request: SupplierRequest,
     ) -> Result<SupplierResponse, SupplierError>;
 }
 
-// SupplierRegistry untuk mendaftarkan dan mengambil supplier
 pub struct SupplierRegistry {
     suppliers: std::collections::HashMap<String, Arc<dyn Supplier>>,
 }

@@ -1,13 +1,21 @@
 use serde::{Serialize, Deserialize};
 use serde_json::Value;
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct SupplierRequest {
-    pub operation: String, // Misal: "search", "get_detail", dll.
-    pub params: Value,     // Parameter bebas, bisa objek atau array
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[serde(rename_all = "snake_case")]
+pub enum SupplierOperation {
+    Search,
+    GetDetail,
+    Other(String),
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+pub struct SupplierRequest {
+    pub operation: SupplierOperation,  
+    pub params: Value,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct SupplierResponse {
-    pub data: Value,       // Data yang diterima dari supplier, bisa apa saja
+    pub data: Value,
 }
