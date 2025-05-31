@@ -112,6 +112,7 @@ pub trait Supplier {
 
 /// A registry for managing suppliers by name. It allows suppliers to be registered, retrieved by name, 
 /// and provides a list of all registered suppliers.
+#[derive(Default)]
 pub struct SupplierRegistry {
     suppliers: std::collections::HashMap<String, Arc<dyn Supplier>>,
 }
